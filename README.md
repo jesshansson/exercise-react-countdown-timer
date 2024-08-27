@@ -27,27 +27,6 @@ I denna övning kommer du att skapa en nedräkningstimer i React. Timern ska sta
    - **Pausa:** Pausar timern.
    - **Återställ:** Återställer timern till 60 sekunder.
 
-### Exempelkod
-
-Här är en grundläggande struktur för komponenten:
-
-```jsx
-import React, { useState, useEffect, useRef } from "react";
-
-function CountdownTimer() {
-  return (
-    <div>
-      <h1>Nedräkningstimer</h1>
-      <h2>{timeLeft} sekunder kvar</h2>
-      <button>Starta</button>
-      <button>Pausa</button>
-      <button>Återställ</button>
-    </div>
-  );
-}
-
-export default CountdownTimer;
-```
 
 ### Utmaningar
 

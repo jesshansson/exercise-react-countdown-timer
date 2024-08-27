@@ -1,0 +1,37 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.counter-container {
+  box-shadow: 0px 0px 27px -7px rgba(122, 122, 122, 0.75);
+  padding: 1rem 8rem 3rem 8rem;
+  border-radius: 30px;
+}
+
+.time-left {
+  box-shadow: 0px 0px 25px 13px rgba(255, 238, 207, 1);
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  margin: 2rem;
+}
+
+button {
+  border-radius: 8px;
+  margin: 1rem;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  border: 1px solid rgb(255, 201, 100);
+}
+button:hover {
+  transform: scale(1.05);
+}
+
+/* @media (max-width: 600px) { } */
