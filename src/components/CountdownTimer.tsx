@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
 export function CountdownTimer() {
-  const [timeLeft, setTimeLeft] = useState<number>(50); //Återstående sekunder
+  const [timeLeft, setTimeLeft] = useState<number>(10); //Återstående sekunder
   const [isActive, setIsActive] = useState<boolean>(false); //Om timern är igång
   const timerRef = useRef<number | null>(null); // Referens för timer-id
 
@@ -13,17 +13,13 @@ export function CountdownTimer() {
             //När räkningen når 0
             clearInterval(timerRef.current!); // Stoppa timern
             timerRef.current = null;
-            setIsActive(false); // Stoppa räkningen
+            setIsActive(false); // Säkerställ att timern stannar och att användaren inte kan starta den igen utan att återställa först
             return 0; // Sätt timeLeft till 0
           }
           return prevTimeLeft - 1; // Minska timeLeft med 1 varje sekund
         });
       }, 1000);
-    } else if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null; //det finns inte någon aktiv timer längre
     }
-
     return () => {
       //Cleanup-funktion, intervallet rensas för att förhindra att timern fortsätter köra efter att isActive ändras
       if (timerRef.current) {
@@ -34,7 +30,6 @@ export function CountdownTimer() {
 
   const startTimer = () => {
     setIsActive(true);
-    console.log(timeLeft);
   };
 
   const pauseTimer = () => {
@@ -43,14 +38,14 @@ export function CountdownTimer() {
 
   const resetTimer = () => {
     setIsActive(false);
-    setTimeLeft(50); //Återställ till ursprungligt
+    setTimeLeft(10);
   };
 
   return (
     <div className="counter-container">
-      <h1>Nedräkningstimer</h1>
+      <h1>Hur många armhävningar klarar du?</h1>
       {timeLeft === 0 ? (
-        <p>Bra jobbat!</p>
+        <h2>Bra jobbat!</h2>
       ) : (
         <h2 className="time-left">{timeLeft} sekunder kvar</h2>
       )}
@@ -60,11 +55,3 @@ export function CountdownTimer() {
     </div>
   );
 }
-
-// useRef - för att skapa en referens som inte orsakar en omrendering av komponenten när den ändras: Här för att hålla reda på timer-id (den returnerade referensen från setInterval).
-// useEffect körs varje gång komponenten renderas om, och när något i dess beroendelista (i det här fallet isActive) ändras.
-
-// Om isActive är true, startar vi en timer som minskar timeLeft varje sekund.
-// Om isActive är false eller om komponenten avmonteras, rensas timern för att förhindra att den fortsätter att köra i bakgrunden. timerRef lagrar id från setInterval så att vi kan stoppa timern när vi vill.
-// timerRef.current = setInterval(() - sparar timer-id (ett unikt identifieringsnummer som setInterval returnerar) i timerRef så att vi senare kan rensa (stoppa) detta intervall om det behövs.
-//"current" - egenskap där du kan lagra ett värde som du vill behålla mellan renderingar av komponenten.

@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+comments.md 
+clean.tsx
+test.tsx
