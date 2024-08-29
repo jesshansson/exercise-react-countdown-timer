@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 export function CountdownTimer() {
   const [timeLeft, setTimeLeft] = useState<number>(10); //Återstående sekunder
   const [isActive, setIsActive] = useState<boolean>(false); //Om timern är igång
+  const [inputTime, setInputTime] = useState<string>(""); //Lagrar värdet som användaren skriver in i inputfälte
   const timerRef = useRef<number | null>(null); // Referens för timer-id
 
   useEffect(() => {
@@ -11,12 +12,12 @@ export function CountdownTimer() {
         setTimeLeft((prevTimeLeft) => {
           if (prevTimeLeft <= 1) {
             //När räkningen når 0
-            clearInterval(timerRef.current!); // Stoppa timern
+            clearInterval(timerRef.current!); // Stoppar intervallet (timern). "!" innebär att timerRef.current inte är null vid den tidpunkten (TypeScript behöver ej varna för fel).
             timerRef.current = null;
             setIsActive(false); // Säkerställ att timern stannar och att användaren inte kan starta den igen utan att återställa först
-            return 0; // Sätt timeLeft till 0
+            return 0; // Sätt timeLeft till 0, för att säkerställa att timeLeft aldrig blir negativt.
           }
-          return prevTimeLeft - 1; // Minska timeLeft med 1 varje sekund
+          return prevTimeLeft - 1; // Minska timeLeft med 1 varje sekund. prevTimeLeft representerar det senaste värdet av timeLeft innan det uppdateras.
         });
       }, 1000);
     }
@@ -41,6 +42,19 @@ export function CountdownTimer() {
     setTimeLeft(10);
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputTime(e.target.value); // Uppdatera inputTime när användaren trycker på knappen
+  };
+
+  //Funktion som körs när användaren klickar på "Sätt tid"
+  const setTimer = () => {
+    const time = parseInt(inputTime, 10); // Konvertera inputvärdet till ett nummer, heltal (från en sträng)
+    if (time > 0) {
+      setTimeLeft(time); // Sätt timeLeft till användarens angivna tid
+      setIsActive(false); // Timern är pausad när ny tid sätts
+    }
+  };
+
   return (
     <div className="counter-container">
       <h1>Hur många armhävningar klarar du?</h1>
@@ -49,9 +63,21 @@ export function CountdownTimer() {
       ) : (
         <h2 className="time-left">{timeLeft} sekunder kvar</h2>
       )}
-      <button onClick={startTimer}>Starta</button>
-      <button onClick={pauseTimer}>Pausa</button>
-      <button onClick={resetTimer}>Återställ</button>
+      <div className="buttons">
+        <button onClick={startTimer}>Starta</button>
+        <button onClick={pauseTimer}>Pausa</button>
+        <button onClick={resetTimer}>Återställ</button>
+      </div>
+      <div className="set-time">
+        <p>Testa med en egen tid!</p>
+        <input
+          type="number"
+          value={inputTime}
+          onChange={handleInputChange}
+          placeholder="Ange tid i sekunder"
+        />
+        <button onClick={setTimer}> Sätt tid </button>
+      </div>
     </div>
   );
 }
