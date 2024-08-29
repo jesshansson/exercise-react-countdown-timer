@@ -1,4 +1,6 @@
-## Övning: Skapa en Nedräkningstimer med React
+## Nedräkningstimer med React
+
+Se sidan live här : https://the-react-countdown.netlify.app/
 
 ### Mål
 
@@ -26,7 +28,6 @@ I denna övning kommer du att skapa en nedräkningstimer i React. Timern ska sta
    - **Starta:** Startar timern.
    - **Pausa:** Pausar timern.
    - **Återställ:** Återställer timern till 60 sekunder.
-
 
 ### Utmaningar
 
