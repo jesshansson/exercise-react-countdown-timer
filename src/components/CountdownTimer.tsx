@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
 export function CountdownTimer() {
-  const [timeLeft, setTimeLeft] = useState<number>(10); //Återstående sekunder
+  const [timeLeft, setTimeLeft] = useState<number>(60); //Återstående sekunder
   const [isActive, setIsActive] = useState<boolean>(false); //Om timern är igång
   const [inputTime, setInputTime] = useState<string>(""); //Lagrar värdet som användaren skriver in i inputfälte
   const timerRef = useRef<number | null>(null); // Referens för timer-id
@@ -39,7 +39,7 @@ export function CountdownTimer() {
 
   const resetTimer = () => {
     setIsActive(false);
-    setTimeLeft(10);
+    setTimeLeft(60);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +57,7 @@ export function CountdownTimer() {
 
   return (
     <div className="counter-container">
-      <h1>Hur många armhävningar klarar du?</h1>
+      <h1>Hur många armhävningar klarar du på 1 minut?</h1>
       {timeLeft === 0 ? (
         <h2>Bra jobbat!</h2>
       ) : (
