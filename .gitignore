@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 comments.md 
 clean.tsx
-version2.tsx
+v2.tsx
